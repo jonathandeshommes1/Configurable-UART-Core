@@ -1,3 +1,9 @@
+/*
+    I developed a full-duplex UART verification environment using SystemVerilog with a modular agent-based architecture.
+    I used a queue-based scoreboard where transmitted data is stored as expected values and compared against received 
+    data. This approach naturally handled FIFO buffering and UART latency without requiring cycle-accurate alignment {intentional delay}. 
+    I also validated cross-UART communication by connecting two DUT instances and verifying bidirectional data flow
+*/
 
 /*
 ------------------------------------------------------------
@@ -21,13 +27,6 @@ Operation:
 Data Flow:
     Generator → Driver → DUT → Monitor → Scoreboard
 ------------------------------------------------------------
-*/
-
-/*
-    Full-duplex UART verification environment using SystemVerilog with a modular agent-based architecture.
-     • Uses a queue-based scoreboard where transmitted data is stored as expected values and compared against received data. 
-     • This approach naturally handled FIFO buffering and UART latency without requiring cycle-accurate alignment {intentional delay}. 
-     • I  validated cross-UART communication by connecting two DUT instances and verifying bidirectional data flow
 */
 
 
@@ -60,7 +59,7 @@ module testbench();
         .o_PAR_Err(itff.u1_o_PAR_Err),
         .o_FRM_Err(itff.u1_o_FRM_Err),
         .o_OVF_Err(itff.u1_o_OVF_Err),
-        .i_RX(itff.u1_i_RX),
+        .i_RX(itff.u2_o_TX),
         .o_TX(itff.u1_o_TX)
     );    
     
@@ -79,7 +78,7 @@ module testbench();
         .o_FRM_Err(itff.u2_o_FRM_Err),
         .o_OVF_Err(itff.u2_o_OVF_Err),
         .i_RX(itff.u1_o_TX),
-        .o_TX(itff.u1_i_RX)
+        .o_TX(itff.u2_o_TX)
     );
 
     // Test program instantiation (verification starts here)
