@@ -43,7 +43,7 @@ interface itf();
     logic        u1_o_OVF_Err;
     
     // Serial Lines {cross connected -> full-duplex}
-    logic        u1_i_RX;  
+    //logic        u1_i_RX;  
     logic        u1_o_TX;
 
 
@@ -65,6 +65,6 @@ interface itf();
     
         // Serial Lines {cross connected -> full-duplex}
    // logic        u2_i_RX;  
-   //  logic        u2_o_TX;                            
+    logic        u2_o_TX;                            
  
 endinterface
